@@ -1,0 +1,908 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,600,700|IBM+Plex+Sans+Condensed:300,400,500,600,700|Josefin+Sans:400,600,700" rel="stylesheet">
+        <title>John Hazelton</title>
+        <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/johncwhazelton.com/css/style.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/style.css">-->
+        <link rel="icon" href="https://s3.amazonaws.com/johncwhazelton.com/Images/tab-logo.png">
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="John Hazelton's Personal Site">
+        <meta property="og:description" content="Learn about me">
+        <meta property="og:image" content="https://s3.amazonaws.com/johncwhazelton.com/Images/tab-logo.png">
+        <meta property="og:url" content="https://s3.amazonaws.com/johncwhazelton.com/index.html">
+        
+        
+      <script src="jquery-3.3.1.js"></script>
+      <script src="jquery.localScroll-2.0.0/jquery.localScroll.js" type="text/javascript"></script> 
+      <script src="jquery.scrollTo-2.1.2/jquery.scrollTo.js" type="text/javascript"></script> 
+        
+      <script>
+
+        $(function () {
+            
+            
+            $("#home").click(function() {
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $("#home-anchor").offset().top
+              }, 1000);
+            });
+            
+            $("#abt").click(function() {
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $("#about-anchor").offset().top
+              }, 1000);
+            });
+          
+            $("#skl").click(function() {
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $("#skills-anchor").offset().top
+              }, 1000);
+            });
+          
+            $("#exp").click(function() {
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $("#experience-anchor").offset().top
+              }, 1000);
+            });
+          
+            $("#pjt").click(function() {
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $("#projects-anchor").offset().top
+              }, 1000);
+            });
+          
+            $("#learn-btn").click(function() {
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $("#about-anchor").offset().top
+              }, 1000);
+            });
+            
+            
+            $(document).scroll(function () {
+              $(".header").toggleClass('scrolled', $(this).scrollTop() > 500);
+            }); 
+            
+            
+            $(document).scroll(function () {
+              var abtPos = $("#about-anchor").offset().top;
+              $("#home").toggleClass('scrolled', $(this).scrollTop() < abtPos-150);
+              $(".home").toggleClass('scrolled', $(this).scrollTop() < abtPos-150);
+            });
+            
+            $(document).scroll(function () {
+              var abtPos = $("#about-anchor").offset().top;
+              var sklPos = $("#skills-anchor").offset().top;
+              $("#abt").toggleClass('scrolled', $(this).scrollTop() > abtPos-150 && $(this).scrollTop() < sklPos-150);
+              $(".about").toggleClass('scrolled', $(this).scrollTop() > abtPos-150 && $(this).scrollTop() < sklPos-150);
+            }); 
+          
+            $(document).scroll(function () { 
+              var sklPos = $("#skills-anchor").offset().top;
+              var expPos = $("#experience-anchor").offset().top;
+              $("#skl").toggleClass('scrolled', $(this).scrollTop() > sklPos-150 && $(this).scrollTop() < expPos-150);
+              $(".skills").toggleClass('scrolled', $(this).scrollTop() > sklPos-150 && $(this).scrollTop() < expPos-150);
+            }); 
+          
+            $(document).scroll(function () {
+              var expPos = $("#experience-anchor").offset().top;
+              var pjtPos = $("#projects-anchor").offset().top;
+              $("#exp").toggleClass('scrolled', $(this).scrollTop() > expPos-150 && $(this).scrollTop() < pjtPos-150);
+              $(".experience").toggleClass('scrolled', $(this).scrollTop() > expPos-150 && $(this).scrollTop() < pjtPos-150);
+            }); 
+          
+            $(document).scroll(function () {
+              var pjtPos = $("#projects-anchor").offset().top;
+              $("#pjt").toggleClass('scrolled', $(this).scrollTop() > pjtPos-150);
+            }); 
+          
+            $(document).ready(function () {
+              scroll();//run when page first loads
+            });
+          
+            $(window).resize(function () {
+              scroll();//run on every window resize
+            });
+            
+            
+            
+            $("#hamburger-menu").click(function() {
+                $("ul").toggleClass("clicked");
+                $("#hamburger-menu").toggleClass("clicked");
+            });
+            
+            $("#hamburger-menu").hover(function() {
+                $("#hamburger-menu").toggleClass("hover");
+            });
+            
+            $(".contact-btn-container").hover(function() {
+                $(".contact-btn-container").toggleClass("hover");
+            });
+            
+            $(".page-link").hover(function() {
+                var underline = $(this).attr("data-underline");
+                $(underline).css("width", "5px");
+            });
+            
+            $.localScroll({duration:900});
+        });
+        
+        var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+        };
+
+      TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+      };
+
+      window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+      };
+        
+    </script>
+        
+    </head>
+    
+    <body> 
+        
+        
+      <div class="header" id="navbar">
+        <div class="header" id="hamburger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+          
+        <ul class="links">
+          <li><a class="page-link" id="home" href="#">Home</a></li>
+          <li><a class="page-link" id="abt" href="#">About Me</a></li>
+          <li><a class="page-link" id="skl" href="#">Skills</a></li>
+          <li><a class="page-link" id="exp" href="#">Experience</a></li>
+          <!--<li><a class="page-link" id="rsm" href="#">Resume</a></li>-->
+        </ul>
+          
+        <div id="contact-btn-container">
+            <a href="mailto:john.hazelton1@gmail.com" class="header" id="contact-btn"><span id="contact-highlight"></span>Contact Me</a>
+        </div>
+          
+        <div class="header logo" id="logo-big">
+          <span class="header first-name">John</span>
+          <h5 class="header last-name"><span class="header logo-highlight" id="logo-highlight-big"></span>Hazelton</h5>
+        </div>  
+          
+        <div class="header logo" id="logo-small">
+          <span class="header first-name" id="first-name-small">J</span>
+          <h5 class="header last-name" id="last-name-small"><span class="header logo-highlight" id="logo-highlight-small"></span>H</h5>
+        </div>
+      </div>
+        
+        <!--<h1 class="typewrite">let's</h1>
+            <h1>
+              <span class="typewrite" data-period="2000" data-type='[ "create", "build", "work" ]'></span>
+              <span class="wrap"></span>
+            </h1>
+            <h1 class="typewrite"> together</h1>
+         -->
+        
+        
+        
+        
+        
+ <!-- TRAVELLING SCROLL INDICATOR - BOTTOM RIGHT OF PAGE-->
+        
+        <p id="scroll-text">Scroll</p>
+        <div id="scroll-indicator"></div>
+        
+        
+        
+        
+        
+        
+        
+ <!-- HOME SECTION -->
+        
+        <div id="home-anchor"></div>
+        
+        <div id="home-container">
+          <div id="headline-box">
+            <p id="welcome-text">Welcome to my site</p>
+            <h1 class="typewrite">Let's</h1>
+            <h1>
+              <span class="typewrite" data-period="2000" data-type='[ "Work", "Create", "Build" ]'></span>
+              <span class="wrap"></span>
+            </h1>
+            <h1 class="typewrite">Together</h1>
+            
+           <!-- LEARN MORE BUTTON-->  
+              
+            <div class="home" id="learn-btn-container">
+              <a href="#" class="home" id="learn-btn">Learn More</a>
+              <div id="learn-btn-left" class="left-outline"></div>
+              <div id="learn-btn-right" class="right-outline"></div>
+              <div id="learn-btn-top" class="top-outline"></div>
+              <div id="learn-btn-bottom" class="bottom-outline"></div>
+            </div>  
+          </div>
+            
+          <div id="about-anchor"></div>
+        </div>
+        
+        
+        
+
+        
+        
+        
+  <!-- ABOUT ME SECITON -->
+        
+        <div class="about" id="about-container">
+         
+          <!--SECTION TITLE -->    
+            
+            <ul class="header-table">
+              <li><div class="about header-indent"></div></li>  
+              <li>
+                <div class="about header-text-box" id="abt-header-text-box">
+                  <!--<div id="abt-header-left" class="left-outline"></div>
+                  <div id="abt-header-right" class="right-outline"></div>
+                  <div id="abt-header-top" class="top-outline"></div>
+                  <div id="abt-header-bottom" class="bottom-outline"></div>-->
+                  <h2 class="about" id="about-header">About Me</h2>
+                  <!--<p class="about header-descrip" id="abt-header-descrip">Here's my story</p>-->  
+                </div>
+              </li>
+            </ul>
+            
+            <ul id="abt-table">
+              <li class="abt-topic">
+                <h3 class="abt-topic-title"><span class="abt-topic-highlight"></span>Studies</h3> 
+                <p class="abt-text">In my undergraduate studies at Vanderbilt, I was able to master soft business skills through collaborative group projects, presentations, and case studies as a Human &amp; Organizational Development (HOD) major. Alternatively, my Economics major led to more quantitative experiences working with statistical models and multivariate analyses both at Vanderbilt and the London School of Economics. Some of my most exciting projects, however, stemmed from my minor in Engineering Management where I solved problems at the intersection of technology and business.</p> 
+              </li>
+              <li class="abt-topic">
+                <h3 class="abt-topic-title"><span class="abt-topic-highlight"></span>Pursuits</h3> 
+                <p class="abt-text">With my varied coursework and experiences, I always strive to find projects at the intersection of free-flowing creativity and data-backed decision making. Using both hard and soft skills in my engineering work in college sparked my ultimate passion for working on the client side of tech. As such, I am pursuing a career that will allow me to utilize my analytical, process oriented thinking in conjunction with creativity. Interning at a Saas startup in marketing has led to my current role at Manhattan Associates as a software consulant, developing skills in data, supply chain, coding, and project management.</p> 
+              </li>
+              <li class="abt-topic">
+                <h3 class="abt-topic-title"><span class="abt-topic-highlight"></span>Hobbies</h3> 
+                <p class="abt-text">Growing up I loved drawing and reading about developments in the tech world. Additionally, I have always been an avid runner, running competitively in high school and more leisurely now as an adult, always searching for races to get involved in both as a runner and a volunteer. The intellectual curiosity from my childhood interests and the discipline from long distance running and training have shaped me into the committed and curious learner I am today.</p> 
+              </li>
+              <li class="abt-topic">
+                <h3 class="abt-topic-title"><span class="abt-topic-highlight"></span>Projects</h3> 
+                <p class="abt-text">This website is my latest coding pursuit, building the site from scratch using self-taught web development languages including HTML, CSS, jQuery, and other JavaScript libraries. I am constantly working on new projects with new languages, and I'm always looking to help others with their ongoing projects as well. Read on to learn more about me and feel free to reach out!</p> 
+              </li>
+            </ul>
+            
+          <div id="skills-anchor"></div>
+        </div>
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+  <!-- SKILLS SECTION -->
+        
+        <div id="skills-container">
+          
+        <!-- SECTION TITLE -->
+            
+          <ul class="header-table-right">  
+            <li>
+              <div class="skills header-text-box">
+                <!--<div id="skl-header-left" class="left-outline"></div>
+                <div id="skl-header-right" class="right-outline"></div>
+                <div id="skl-header-top" class="top-outline"></div>
+                <div id="skl-header-bottom" class="bottom-outline"></div>-->
+                <h2 class="skills" id="skl-header">Technical Skills</h2>
+                <!--<p class="skills header-descrip" id="skl-header-descrip">Here's what I know</p>-->  
+              </div>
+            </li>
+            <li><div class="skills header-indent" id="skl-header-indent"></div></li>
+          </ul> 
+            
+          <div id="skl-section">
+            <ul id="skl-table">
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/python-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skl-title">Python</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-1"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">80%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/r-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skl-title">R</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-2"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">100%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/excel-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skl-title">MS Excel (expert certification)</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-3"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">100%</p>
+                  </li>
+                </ul>              
+              </li> 
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/sql-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">SQL</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-4"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">50%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/html-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">HTML, CSS, &amp; Wordpress</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-5"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">80%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/javascript-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">Javascript</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-6"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">30%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/java-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">Java</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-7"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">70%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/jira-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">Jira</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-8"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">90%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/figma-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">Figma</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-9"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">30%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/invision-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">InVision Studio</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-10"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">50%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/pmi-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">Project Management Certification (CAPM)</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-11"></div>  
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">100%</p>
+                  </li>
+                </ul>              
+              </li>
+              <li class="responsive-li">
+                <ul class="skl-row">
+                  <li>
+                    <div class="skl-logo">
+                      <img class="skl-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/skills/visio-white.png">   
+                    </div>
+                  </li>
+                  <li>
+                    <div class="skl-item">
+                      <h3 class="skill-title">MS Project &amp; MS Visio</h3>
+                      <div class="progress-container">
+                        <div class="skills progress-bar" id="skill-12"></div>
+                      </div>  
+                    </div>
+                    <p class="skills" id="achievement-percentage">50%</p>
+                  </li>
+                </ul>              
+              </li>
+            </ul>  
+          </div> 
+            
+          <div id="experience-anchor"></div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+  <!-- EDUCATION & EXPERIENCE SECTION -->
+        
+        <div id="experience-container">
+            
+        <!-- SECTION TITLE -->
+            
+            <ul class="header-table">
+              <li><div class="experience header-indent"></div></li>  
+              <li>
+                <div class="header-text-box">
+                  <h2 class="experience" id="exp-header">Education &amp; Experience</h2>
+                  <!--<p class="experience header-descrip" id="experience-header-descrip">Here's what I've done</p>-->  
+                </div>
+              </li>
+            </ul>
+            
+          
+          <div id="exp-section">
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/vandy-white.png">
+                  </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">2016-2020</h4>  
+                    </div>
+                    <h3 class="exp-title">Vanderbilt University</h3>
+                    <h4 class="exp-location">Nashville, TN</h4>
+                    <p class="exp-description">Completed a double major in Economics and Human &amp; Organizational Development (HOD) with a minor in Engineering Management</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/lse-white.png" id="lse">  
+                  </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">Summer 2017</h4>  
+                    </div>
+                    <h3 class="exp-title">London School of Economics</h3>
+                    <h4 class="exp-location">London, UK</h4>
+                    <p class="exp-description">Studied Intermediate Micro &amp; Macroeconomics over the course of 6 weeks in London</p>
+                  </div>
+                </li>
+              </ul> 
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/accelerator-white.png">
+                  </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">Summer 2018</h4>  
+                    </div>
+                    <h3 class="exp-title">Vanderbilt Accelerator - Student Consultant</h3>
+                    <h4 class="exp-location">Nashville, TN</h4>
+                    <p class="exp-description">Completed four local consulting projects over the course of 150+ hours alongside the following companies: Deloitte, Redpepper LLC, HAVEN, MaxxContent, and Google Fiber</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/avail-white.png">   
+                    </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">Summer 2018</h4>  
+                    </div>
+                    <h3 class="exp-title">Avail Housing - Business Development Intern</h3>
+                    <h4 class="exp-location">Nashville, TN</h4>
+                    <p class="exp-description">Conducted research and developed business plan for startup's platform rollout into Nashville, Atlanta, Dallas, and Austin as initial set of adopting cities</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/greenlight-white.png">   
+                    </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">Summer 2019</h4>  
+                    </div>
+                    <h3 class="exp-title">GreenLight Medical - Srategic Marketing &amp; Project Management Intern</h3>
+                    <h4 class="exp-location">Nashville, TN</h4>
+                    <p class="exp-description">Built marketing strategy around product roadmap and produced all marketing content within it, including case studies, eBook, monthly newsletters, and ad campaigns. Built website "Careers" page and optimized homepage and custom landing pages using Wordpress</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/sestolabs-white.png" id="sestolabs">  
+                  </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">Summer-Fall 2020</h4>  
+                    </div>
+                    <h3 class="exp-title">Sesto Labs - Technical Product Manager Intern</h3>
+                    <h4 class="exp-location">Remote</h4>
+                    <p class="exp-description">Managed end-to-end product development of the “Benevv” social causes app. Led product team in an agile, startup environment to prioritize enhancements, features, and test efforts</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/manhattan-white.png">   
+                  </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                  <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">2021-Present</h4>  
+                    </div>
+                    <h3 class="exp-title">Manhattan Associates - Software Consultant</h3>
+                    <h4 class="exp-location">Atlanta, GA</h4>
+                    <p class="exp-description">Implement and provide support for Manhattan's supply chain software according to the unique needs of the client, while serving as liason between client and internal R&amp;D teams</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="exp-timeline-block">
+                <div class="exp-timeline-base"></div>
+              </div>
+              <ul class="exp-row">
+                <li>
+                  <div class="exp-logo">
+                    <img class="exp-images" src="https://s3.amazonaws.com/johncwhazelton.com/Images/experience/uva-white.png">
+                  </div>
+                </li>
+                <li>
+                  <div class="experience exp-underline"></div>
+                </li>
+                <li>
+                  <div class="experience exp-underline-dot"><div class="underline-dot-inside"></div></div>
+                </li>
+                <li>
+                  <div class="exp-item">
+                    <div class="date-box">
+                      <h4 class="exp-date">2021-Present</h4>  
+                    </div>
+                    <h3 class="exp-title">University of Virginia School of Data Science</h3>
+                    <h4 class="exp-location">Remote</h4>
+                    <p class="exp-description">Completing a master's of science in Data Science</p>
+                  </div>
+                </li>
+              </ul>
+          </div>
+    
+              
+          <div id="projects-anchor"></div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+  <!-- PROJECTS & RESUME SECTION -->   
+        
+        <div id="projects-container">
+          
+          <div id="pjt-section-title-highlight"></div>
+          <p id="pjt-section-title">Other Projects</p>
+            
+          <div id="pjt-section">
+            <ul id="pjt-table">
+              <li class="responsive-li">
+                <div id="pjt-text-box">
+                  <p id="pjt-title">Calyx Consulting</p>
+                  <p id="pjt-description">Check out another website I created as a company homepage mockup</p>
+                  <a href="https://www.calyxconsultancy.com" id="pjt-btn">Go To Site</a>  
+                </div>
+              </li> 
+              <li class="responsive-li">
+                <div id="calyx-logo">
+                  <img id="calyx-image" src="Images/calyx.png">
+                </div>     
+              </li>
+            </ul>
+          </div>
+          
+          <div id="pjt-divider"></div>
+          <p id="resume-description">I've always got new projects in the works, so check back regularly to see what I'm creating!</p>
+          <div id="btn-alignment-container">
+            <a href="https://s3.amazonaws.com/johncwhazelton.com/John+Hazelton+-+Resume.pdf" id="resume-btn">Resume</a>
+            <a href="mailto:john.hazelton1@gmail.com" id="pjt-contact-btn">Contact Me</a>  
+          </div>
+          
+          
+        </div>      
+            
+            
+        
+        
+        
+        
+        
+        
+        
+  <!-- WEBSITE FOOTER -->
+        
+          <div id="footer-container">
+            <ul id="footer">
+              <li>
+                <div class="footer-column">
+                  <p id="copyright">© 2020 John Hazelton. All rights reserved.</p>
+                </div>
+              </li>
+              <li>
+                <div class="footer-column">
+                  <ul id="social-links">
+                    <li><a class="social-icon" href="https://www.facebook.com/john.hazelton.37"><i class="fab fa-facebook-f"></i></a></li>  
+                    <li><a class="social-icon" href="https://www.linkedin.com/in/john-hazelton-352368156/"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a class="social-icon" id="github-link" href="https://github.com/JohnHazelton"><i class="fab fa-github"></i></a></li>
+                  </ul>  
+                </div>
+              </li>
+              <li>
+                <div class="footer-column">
+                  <ul id="footer-list">
+                    <li><a class="page-link" href="#home-anchor">Home</a></li>
+                    <li><a class="page-link" href="#about-anchor">About Me</a></li>
+                    <li><a class="page-link" href="#skills-anchor">Skills</a></li>
+                    <li><a class="page-link" href="#experience-anchor">Experience</a></li>
+                  </ul>  
+                </div>
+              </li>
+            </ul>
+          </div>
+            
+        
+        
+    </body>
+    
+    
+</html>
